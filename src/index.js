@@ -2,7 +2,7 @@ import express,{json} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import {loginUser,createUser} from "./Controllers/authControllers.js";
-import  { createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
+import  { teste, createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
 import { db } from "./dbStrategy/mongo.js";
 dotenv.config();
 
@@ -35,6 +35,7 @@ app.post("/cadastro",createUser);
 // Carrinho Route
 app.post("/carrinho",createCarrinho)
 app.get("/carrinho",getCarrinho)
+app.get("/teste",teste)
 
 
 app.listen(process.env.PORT,()=>{

@@ -25,7 +25,7 @@ if(!cadastroExistente||!senhaValida){
         const token = await createToken(loginBody.email,time)
         await db.collection("sessions").insertOne({"email": cadastroExistente.email,"user_id":cadastroExistente._id, token,time})
         const userToken =await db.collection("sessions").find({token}).toArray()
-        res.status(201).send(userToken)
+        res.status(201).send({...cadastroExistente,token})
     } catch (error) {
         console.log(error)
         res.sendStatus(500)
