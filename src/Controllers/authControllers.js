@@ -1,8 +1,8 @@
-import { validateSchema } from "../assets/validateSchema.js";
-import {signInSchema,signUpSchema} from "./../Schemas/authSchemas.js";
-import {db,objectId} from "./../dbStrategy/mongo.js";
+import {validateSchema} from "../assets/validateSchema.js";
+import {signInSchema, signUpSchema} from "./../Schemas/authSchemas.js";
+import {db, objectId} from "./../dbStrategy/mongo.js";
 import {createToken} from "./../assets/authAssets/createToken.js"
-import { conferirCadastroExistente,verificarSenha} from "../assets/authAssets/authValidadores.js";
+import {conferirCadastroExistente, verificarSenha} from "../assets/authAssets/authValidadores.js";
 import bcrypt from "bcrypt"
 
 export async function loginUser(req,res){
@@ -14,8 +14,8 @@ if(loginValido){
     res.status(422).send("Login inválido")
     return
 }
-const cadastroExistente= await conferirCadastroExistente(loginBody)
-const senhaValida = await verificarSenha(loginBody,cadastroExistente)
+const cadastroExistente = await conferirCadastroExistente(loginBody)
+const senhaValida = await verificarSenha(loginBody, cadastroExistente)
 if(!cadastroExistente||!senhaValida){
     return res.status(401).send("Email ou Senha inválidos")
 }
@@ -35,23 +35,22 @@ if(!cadastroExistente||!senhaValida){
 export async function createUser(req,res){
     const CadastroBody = req.body;
     const {password} = CadastroBody
-    const CadastroValido = validateSchema(signUpSchema,CadastroBody)
+    const CadastroValido = validateSchema(signUpSchema, CadastroBody)
     
     if(CadastroValido){
         res.status(422).send("Cadastro inválido")
         return
     }
     
-    const cadastroExistente= await conferirCadastroExistente(CadastroBody)
+    const cadastroExistente = await conferirCadastroExistente(CadastroBody)
    
     if(cadastroExistente){
         return res.status(401).send("Email já cadastrado")
     }
 
     try {
-        const passwordCrypt =  bcrypt.hashSync(password,10)
+        const passwordCrypt = bcrypt.hashSync(password,10)
         await db.collection("users").insertOne({...CadastroBody,password:passwordCrypt})
-        
         res.status(201).send({...CadastroBody,password:passwordCrypt})
 
     } catch (error) {

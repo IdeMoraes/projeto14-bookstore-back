@@ -1,12 +1,7 @@
-import { validateSchema } from "../assets/validateSchema.js";
-import {signInSchema,signUpSchema} from "./../Schemas/authSchemas.js";
-import {db,objectId} from "./../dbStrategy/mongo.js";
-import {createToken} from "./../assets/authAssets/createToken.js"
-import { conferirCadastroExistente,verificarSenha} from "../assets/authAssets/authValidadores.js";
-import bcrypt from "bcrypt"
+import {db} from "./../dbStrategy/mongo.js";
 
 export async function carregarProdutos(req,res){
-    const catalogo=[
+/*     const catalogo=[
         {
             idDoLivro: 1,
             titulo: 'Memórias Póstumas de Brás Cubas',
@@ -97,14 +92,16 @@ export async function carregarProdutos(req,res){
             descricao: 'Obra monumental, de incorporação da cultura popular, que se apresenta programaticamente inconclusa, na qual o narrador, preso por seu envolvimento com um episódio trágico do sertão (a degola de animais e pessoas para instaurar o Império da Pedra do Reino) constrói o romance como uma peça de defesa, tentando nos convencer de sua inocência. Farsa e fanatismo dão a tônica ao romance.',
             quantidadeEmEstoque: 50
         }  
-    ];
-    console.log('tentaram carregar os livros');
+    ]; */
+
     try {
         const {authorization} = req.headers;
         const token = authorization?.replace("Bearer", "").trim();
         if (await db.collection("sessions").findOne({token})) {
-            return res.status(202).send("catalogo");
+            const catalogo = await db.collection("catalogo").find({}).toArray();
+            return res.send(catalogo)
         }
+        else return res.send("deu erro");
     } catch (error) {
         return res.status(500).send(error)
     }

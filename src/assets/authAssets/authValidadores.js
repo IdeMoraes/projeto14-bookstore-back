@@ -21,4 +21,4 @@ export function verificarSenha(acesso,cadastro){
     }
     const verificacao = bcrypt.compareSync(password,passwordCrypt);    
     return verificacao
-    }
+}
