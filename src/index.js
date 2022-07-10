@@ -1,7 +1,8 @@
-import express,{json} from "express"
-import dotenv from "dotenv"
-import cors from "cors"
-import {loginUser,createUser} from "./Controllers/authControllers.js"
+import express,{json} from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import {loginUser,createUser} from "./Controllers/authControllers.js";
+import  { createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
 import { db } from "./dbStrategy/mongo.js";
 dotenv.config();
 
@@ -29,6 +30,12 @@ app.post("/cadastro",createUser);
 //     const tempoLimite = timeNow - horaEmMilesec;
 //     await db.collection("sessions").deleteMany({"time":{$lt:tempoLimite}})
 // }
+
+
+// Carrinho Route
+app.post("/carrinho",createCarrinho)
+app.get("/carrinho",getCarrinho)
+
 
 app.listen(process.env.PORT,()=>{
     console.log("servido funfando")
