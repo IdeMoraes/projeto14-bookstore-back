@@ -2,6 +2,7 @@ import express,{json} from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import {loginUser,createUser} from "./Controllers/authControllers.js"
+import { carregarProdutos } from "./Controllers/productController.js"
 import { db } from "./dbStrategy/mongo.js";
 dotenv.config();
 
@@ -13,6 +14,8 @@ app.use(cors());
 //Auth Route
 app.post("/",loginUser);
 app.post("/cadastro",createUser);
+app.get("/produtos",carregarProdutos);
+
 
 
 //      TESTE PARA LIMPEZA DE TOKEN
