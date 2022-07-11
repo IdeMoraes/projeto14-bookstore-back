@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 import express,{json} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import {loginUser,createUser} from "./Controllers/authControllers.js";
 import  { createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
 
+=======
+import express,{json} from "express"
+import dotenv from "dotenv"
+import cors from "cors"
+import {loginUser,createUser} from "./Controllers/authControllers.js"
+import { carregarProdutos } from "./Controllers/productController.js"
+import { db } from "./dbStrategy/mongo.js";
+>>>>>>> b5385664b88969362c44c9bced22bac507eee258
 dotenv.config();
 
 const app = express();
@@ -13,7 +22,9 @@ app.use(cors());
 
 //Auth Route
 app.post("/",loginUser);
-app.post("/cadastro",createUser);
+app.post("/cadastro", createUser);
+
+app.get("/produtos", carregarProdutos);
 
 
 //      TESTE PARA LIMPEZA DE TOKEN
