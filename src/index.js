@@ -1,9 +1,10 @@
-import express,{json} from "express"
-import dotenv from "dotenv"
-import cors from "cors"
-import {loginUser,createUser} from "./Controllers/authControllers.js"
+import express,{json} from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import {loginUser,createUser} from "./Controllers/authControllers.js";
+import  { createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
 import { carregarProdutos } from "./Controllers/productController.js"
-import { db } from "./dbStrategy/mongo.js";
+
 dotenv.config();
 
 const app = express();
@@ -31,6 +32,17 @@ app.get("/produtos", carregarProdutos);
 //     const tempoLimite = timeNow - horaEmMilesec;
 //     await db.collection("sessions").deleteMany({"time":{$lt:tempoLimite}})
 // }
+
+
+// Carrinho Route
+app.post("/carrinho",createCarrinho)
+app.get("/carrinho",getCarrinho)
+
+
+app.get("/teste", (req,res)=>{
+    console.log("rodei")
+    res.status(200).send("tudo ok")
+})
 
 app.listen(process.env.PORT,()=>{
     console.log("servido funfando")
