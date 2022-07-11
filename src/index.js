@@ -16,7 +16,7 @@ app.use(cors());
 
 //Auth Route
 app.post("/",loginUser);
-app.get("/cadastro", createUser);
+app.post("/cadastro", createUser);
 
 
 //Produtos Route
