@@ -8,5 +8,4 @@ mongoClient.connect(()=>{
     db = mongoClient.db(process.env.DB_MONGO)
 })
 const objectId = ObjectId
-
 export {db,objectId}
