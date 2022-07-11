@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import {loginUser,createUser} from "./Controllers/authControllers.js";
 import  { createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
+
 import { carregarProdutos,postProdutos } from "./Controllers/productController.js"
+
 
 dotenv.config();
 
@@ -14,9 +16,11 @@ app.use(cors());
 
 //Auth Route
 app.post("/",loginUser);
-app.post("/cadastro", createUser);
+app.get("/cadastro", createUser);
+
 
 //Produtos Route
+
 
 app.get("/produtos", carregarProdutos);
 app.post("/produtos",postProdutos)
