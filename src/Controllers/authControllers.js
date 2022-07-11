@@ -22,10 +22,17 @@ if(!cadastroExistente||!senhaValida){
 // FIM DAS VALIDACOES
     try {
         const time = Date.now()
+<<<<<<< HEAD
+        const token = await createToken(loginBody.email,time)
+        await db.collection("sessions").insertOne({"name":cadastroExistente.name,"email": cadastroExistente.email,"user_id":cadastroExistente._id, token,time})
+        const userToken =await db.collection("sessions").find({token}).toArray()
+        res.status(201).send({...cadastroExistente,token})
+=======
         const token = await createToken(loginBody.email, time)
         await db.collection("sessions").insertOne({"email": cadastroExistente.email, "user_id":cadastroExistente._id, token, time})
         const listaSessoes = await db.collection("sessions").find({}).toArray()
         res.status(201).send(listaSessoes)
+>>>>>>> b5385664b88969362c44c9bced22bac507eee258
     } catch (error) {
         console.log(error)
         res.sendStatus(500)
