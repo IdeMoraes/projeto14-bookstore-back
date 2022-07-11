@@ -13,10 +13,9 @@ app.use(cors());
 
 //Auth Route
 app.post("/",loginUser);
-app.post("/cadastro", createUser);
+app.get("/cadastro", createUser);
 
 app.get("/produtos", carregarProdutos);
-
 
 //      TESTE PARA LIMPEZA DE TOKEN
 
