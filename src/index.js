@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import {loginUser,createUser} from "./Controllers/authControllers.js";
 import  { createCarrinho, getCarrinho} from './Controllers/carrinhoControllers.js';
-import { db } from "./dbStrategy/mongo.js";
+
 dotenv.config();
 
 const app = express();
